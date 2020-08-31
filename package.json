@@ -4,13 +4,13 @@
   "description": "Date range picker - lightweight, no dependencies",
   "main": "./dist/js/main.js",
   "types": "./dist/js/index.d.ts",
-  "prepare": "npm run prod",
   "scripts": {
     "prod": "webpack --config config/webpack.prod.js && webpack --config config/webpack.nocss.js",
     "dev": "webpack --config config/webpack.dev.js",
     "docs": "webpack --config config/webpack.docs.js",
     "watch": "webpack -w --config config/webpack.dev.js",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "npm run prod"
   },
   "keywords": [
     "datepicker",
