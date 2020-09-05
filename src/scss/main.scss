@@ -2,30 +2,30 @@
   --litepickerBgColor: #fff;
 
   --litepickerMonthHeaderTextColor: #333;
-  --litepickerMonthButton: #9e9e9e;
-  --litepickerMonthButtonHover: #2196f3;
+  --litepickerMonthButton: #baac9e;
+  --litepickerMonthButtonHover: #22274e;
   --litepickerMonthWidth: calc(var(--litepickerDayWidth) * 7); // 7 days
   --litepickerMonthWeekdayColor: #9e9e9e;
 
   --litepickerDayColor: #333;
-  --litepickerDayColorHover: #2196f3;
-  --litepickerDayIsTodayColor: #f44336;
+  --litepickerDayColorHover: #22274e;
+  --litepickerDayIsTodayColor: #c68f6d;
   --litepickerDayIsInRange: #bbdefb;
   --litepickerDayIsLockedColor: #9e9e9e;
   --litepickerDayIsBookedColor: #9e9e9e;
   --litepickerDayIsStartColor: #fff;
-  --litepickerDayIsStartBg: #2196f3;
+  --litepickerDayIsStartBg: #22274e;
   --litepickerDayIsEndColor: #fff;
-  --litepickerDayIsEndBg: #2196f3;
+  --litepickerDayIsEndBg: #22274e;
   --litepickerDayWidth: 38px;
 
   --litepickerButtonCancelColor: #fff;
   --litepickerButtonCancelBg: #9e9e9e;
   --litepickerButtonApplyColor: #fff;
-  --litepickerButtonApplyBg: #2196f3;
+  --litepickerButtonApplyBg: #22274e;
 
   --litepickerButtonResetBtn: #909090;
-  --litepickerButtonResetBtnHover: #2196f3;
+  --litepickerButtonResetBtnHover: #22274e;
 
   --litepickerHighlightedDayColor: #333;
   --litepickerHighlightedDayBg: #ffeb3b;
@@ -35,8 +35,8 @@
 }
 
 .litepicker {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 0.8em;
+  font-family: inherit, sans-serif;
+  font-size: 0.9em;
   display: none;
 
   .container {
@@ -196,7 +196,7 @@
 
       > div,
       > a {
-        padding: 5px 0;
+        padding: 9px 0;
         width: var(--litepickerDayWidth);
       }
 
@@ -227,6 +227,11 @@
           }
         }
 
+        &not(.is-locked) {
+          color: var(--litepickerDayIsLockedColor);
+          font-weight: 500;
+        }
+
         &.is-booked {
           color: var(--litepickerDayIsBookedColor);
 
@@ -245,8 +250,8 @@
         &.is-start-date {
           color: var(--litepickerDayIsStartColor);
           background-color: var(--litepickerDayIsStartBg);
-          border-top-left-radius: 5px;
-          border-bottom-left-radius: 5px;
+          border-top-left-radius: var(--litepickerDayWidth);
+          border-bottom-left-radius: var(--litepickerDayWidth);
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
 
@@ -263,8 +268,8 @@
           background-color: var(--litepickerDayIsEndBg);
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
-          border-top-right-radius: 5px;
-          border-bottom-right-radius: 5px;
+          border-top-right-radius: var(--litepickerDayWidth);
+          border-bottom-right-radius: var(--litepickerDayWidth);
 
           &.is-flipped {
             border-top-left-radius: 5px;
