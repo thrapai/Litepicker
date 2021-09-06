@@ -122,6 +122,7 @@
           .button-previous-month,
           .button-next-month {
             visibility: hidden;
+            pointer-events: auto;
             text-decoration: none;
             color: var(--litepickerMonthButton);
             padding: 3px 5px;
@@ -137,11 +138,27 @@
 
             &:hover {
               color: var(--litepickerMonthButtonHover);
+              cursor: pointer;
 
               > svg {
                 fill: var(--litepickerMonthButtonHover);
               }
             }
+          }
+        }
+
+        .button-locked-month {
+          pointer-events: none;
+          color: var(--litepickerButtonCancelColor);
+          
+          > svg,
+          > img {
+            fill: var(--litepickerButtonCancelColor);
+            pointer-events: none;
+          }
+
+          &:hover {
+            cursor: default;
           }
         }
 

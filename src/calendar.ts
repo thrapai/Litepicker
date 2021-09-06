@@ -325,11 +325,17 @@ export class Calendar {
       monthYear.innerHTML = String(date.getFullYear());
       monthAndYear.appendChild(monthYear);
     }
-
-    const previousMonthButton = document.createElement('a');
-    previousMonthButton.href = '#';
-    previousMonthButton.className = style.buttonPreviousMonth;
-    previousMonthButton.innerHTML = this.options.buttonText.previousMonth;
+    
+      const previousMonthButton = document.createElement('a');
+      previousMonthButton.href = '#';
+      previousMonthButton.className = style.buttonPreviousMonth;
+      previousMonthButton.innerHTML = this.options.buttonText.previousMonth;
+      if ((new Date(date.toDateString()).getMonth() <= new Date().getMonth()) && 
+        (new Date(date.toDateString()).getFullYear() <= new Date().getFullYear())){
+        previousMonthButton.classList.add(style.buttonLockedMonth)
+      } else {
+        previousMonthButton.classList.remove(style.buttonLockedMonth)
+      }
 
     const nextMonthButton = document.createElement('a');
     nextMonthButton.href = '#';
