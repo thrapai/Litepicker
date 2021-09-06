@@ -218,6 +218,7 @@
 
         &.is-locked {
           color: var(--litepickerDayIsLockedColor);
+          text-decoration: line-through;
 
           &:hover {
             color: var(--litepickerDayIsLockedColor);
@@ -229,6 +230,16 @@
         &:not(.is-locked) {
           color: black;
           font-weight: 500;
+        }
+
+        &.is-day-of-week {
+          color: var(--litepickerDayIsLockedColor);
+
+          &:hover {
+            color: var(--litepickerDayIsLockedColor);
+            box-shadow: none;
+            cursor: default;
+          }
         }
 
         &.is-booked {

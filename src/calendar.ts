@@ -34,6 +34,7 @@ export class Calendar {
     hotelMode: false,
     disableWeekends: false,
     onlySaturdays: false,
+    lockPastDates: false,
     scrollToDate: true,
     mobileFriendly: true,
     useResetBtn: false,
@@ -514,6 +515,13 @@ export class Calendar {
       }
     }
 
+    if (this.options.lockPastDays) {
+      if (new Date(date.toDateString()) <= new Date(new Date().setDate(new Date().getDate()-1))){
+        // if the given day is past, mark it as locked
+        day.classList.add(style.isLocked);
+      }
+    }
+
     if (this.options.highlightedDays.length) {
       const isHighlighted = this.options.highlightedDays
         .filter((d) => {
@@ -567,7 +575,7 @@ export class Calendar {
     
     if (this.options.onlySaturdays
       && (date.getDay() !== 6)) {
-      day.classList.add(style.isLocked);
+      day.classList.add(style.isDayOfWeek);
     }
 
     if (typeof this.options.onRenderDay === 'function') {
