@@ -570,7 +570,7 @@ export class Calendar {
         && this.datePicked.length === 1;
 
       if (shouldBooked && !anyBookedDaysAsCheckout) {
-        day.classList.add(style.isBooked);
+        day.classList.add(style.isLocked);
       }
     }
 
