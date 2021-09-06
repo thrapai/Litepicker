@@ -247,9 +247,17 @@
         &:not(.is-locked) {
           color: black;
           font-weight: 500;
+
+          &:hover {
+            background-color: var(--litepickerDayColorHover);
+            color: #fff;
+            box-shadow: none;
+            cursor: pointer;
+          }
         }
 
         &.is-day-of-week {
+          pointer-events: none;
           color: var(--litepickerDayIsLockedColor);
 
           &:hover {
@@ -285,8 +293,8 @@
           &.is-flipped {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
+            border-top-right-radius: var(--litepickerDayWidth);
+            border-bottom-right-radius: var(--litepickerDayWidth);
           }
         }
 
@@ -299,10 +307,10 @@
           border-bottom-right-radius: var(--litepickerDayWidth);
 
           &.is-flipped {
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
+            border-top-left-radius: var(--litepickerDayWidth);
+            border-bottom-left-radius: var(--litepickerDayWidth);
             border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
+            border-bottom-right-radius: 0;;
           }
         }
 
