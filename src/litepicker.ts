@@ -322,7 +322,7 @@ export class Litepicker extends Calendar {
 
     return picker === this.picker;
   }
-
+  
   private shouldShown(el) {
     return el === this.options.element
       || (this.options.elementEnd && el === this.options.elementEnd);
@@ -373,6 +373,10 @@ export class Litepicker extends Calendar {
       e.preventDefault();
 
       if (!this.isSamePicker(target)) {
+        return;
+      }
+
+      if (target.classList.contains(style.isStartDate) && target.classList.contains(style.isEndDate)) {
         return;
       }
 
