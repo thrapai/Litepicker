@@ -45,6 +45,7 @@ export class Calendar {
     lockDays: [],
     disallowLockDaysInRange: false,
     lockDaysInclusivity: '[]',
+    lockDaysAfterDate: '',
 
     bookedDaysFormat: 'YYYY-MM-DD',
     bookedDays: [],
@@ -528,6 +529,13 @@ export class Calendar {
       }
     }
 
+    if (this.options.lockDaysAfterDate != '') {
+      if (new Date(date.toDateString()) >= new Date(this.options.lockDaysAfterDate)){
+        // if the given day is past the given date, mark it as locked
+        day.classList.add(style.isLocked);
+      }
+    }
+
     if (this.options.highlightedDays.length) {
       const isHighlighted = this.options.highlightedDays
         .filter((d) => {
@@ -559,17 +567,21 @@ export class Calendar {
 
       const booked = this.dateIsBooked(date, inclusivity);
       const isBookedBefore = this.dateIsBooked(dateBefore, '[]');
-      const isCheckInAndCheckOut = this.dateIsBooked(date, '(]');
-      // const isBookedAfter = this.dateIsBooked(dateAfter, '[]');
+      const isBookedAfter = this.dateIsBooked(dateAfter, '[]');
+      const isCheckIn = this.dateIsBooked(date, '[)');
+      const isCheckOut = this.dateIsBooked(date, '(]');
 
       const shouldBooked = (this.datePicked.length === 0 && booked)
         || (this.datePicked.length === 1 && isBookedBefore && booked)
-        || (this.datePicked.length === 1 && isBookedBefore && isCheckInAndCheckOut);
+        || (this.datePicked.length === 1 && isBookedAfter && booked)
+        || (isBookedAfter && !isBookedBefore && isCheckIn);
+
+      const isCheckoutDate = (!isBookedAfter && isBookedBefore && isCheckOut);
 
       const anyBookedDaysAsCheckout = this.options.anyBookedDaysAsCheckout
         && this.datePicked.length === 1;
 
-      if (shouldBooked && !anyBookedDaysAsCheckout) {
+      if (shouldBooked && !anyBookedDaysAsCheckout && !isCheckoutDate) {
         day.classList.add(style.isLocked);
       }
     }
