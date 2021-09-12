@@ -573,15 +573,27 @@ export class Calendar {
 
       const shouldBooked = (this.datePicked.length === 0 && booked)
         || (this.datePicked.length === 1 && isBookedBefore && booked)
-        || (this.datePicked.length === 1 && isBookedAfter && booked)
-        || (isBookedAfter && !isBookedBefore && isCheckIn);
+        || (this.datePicked.length === 1 && isBookedAfter && booked);
+      
+      // Check in date appears as anavailable 
+      const isCheckInDate = (isBookedAfter && !isBookedBefore && isCheckIn);
 
+      // Check in date can be selected as checkout id datepicked[0] is before checkin date
+      const checkInAsCheckout = this.datePicked.length === 1 
+      && (new Date(this.datePicked[0].toDateString()) < new Date(date.toDateString())) 
+      && (isBookedAfter && !isBookedBefore && isCheckIn);
+
+      // Checkout Date can be selected as Checkin
       const isCheckoutDate = (!isBookedAfter && isBookedBefore && isCheckOut);
 
       const anyBookedDaysAsCheckout = this.options.anyBookedDaysAsCheckout
         && this.datePicked.length === 1;
 
-      if (shouldBooked && !anyBookedDaysAsCheckout && !isCheckoutDate) {
+      if (checkInAsCheckout) {
+        day.classList.remove(style.isDayOfWeek);
+      } else if (isCheckInDate) {
+        day.classList.add(style.isDayOfWeek);
+      } else if (shouldBooked && !anyBookedDaysAsCheckout && !isCheckoutDate) {
         day.classList.add(style.isLocked);
       }
     }
