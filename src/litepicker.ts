@@ -450,6 +450,7 @@ export class Litepicker extends Calendar {
         }
       }
 
+      this.options.tempLockDaysAfter = '';  //clear tempLockDaysAfter before every render
       this.render();
 
       if (this.options.autoApply) {

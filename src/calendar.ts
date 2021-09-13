@@ -46,6 +46,7 @@ export class Calendar {
     disallowLockDaysInRange: false,
     lockDaysInclusivity: '[]',
     lockDaysAfterDate: '',
+    tempLockDaysAfter: '', //used only when booking
 
     bookedDaysFormat: 'YYYY-MM-DD',
     bookedDays: [],
@@ -579,7 +580,7 @@ export class Calendar {
       // Check in date appears as anavailable 
       const isCheckInDate = (isBookedAfter && !isBookedBefore && isCheckIn);
 
-      // Check in date can be selected as checkout id datepicked[0] is before checkin date
+      // Check in date can be selected as checkout if datepicked[0] is before checkin date
       const checkInAsCheckout = this.datePicked.length === 1 
       && (new Date(this.datePicked[0].toDateString()) < new Date(date.toDateString())) 
       && (isBookedAfter && !isBookedBefore && isCheckIn);
@@ -591,6 +592,7 @@ export class Calendar {
         && this.datePicked.length === 1;
 
       if (checkInAsCheckout) {
+        this.options.tempLockDaysAfter = date.toDateString();
         day.classList.remove(style.isBooked);
       } else if (isCheckInDate) {
         day.classList.add(style.isBooked);
@@ -601,6 +603,14 @@ export class Calendar {
       if (isCheckoutDate) {
         day.classList.remove(style.isBooked);
       }
+    }
+
+    // When Check in date is selected as checkout, the rest of the days are marked us unavailable
+    if (this.datePicked.length === 1
+      && this.options.bookedDays.length && this.options.tempLockDaysAfter != ''){
+        if (new Date(this.options.tempLockDaysAfter) < new Date(date.toDateString())){
+          day.classList.add(style.isLocked);
+        }
     }
 
     if (this.options.disableWeekends

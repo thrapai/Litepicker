@@ -302,7 +302,7 @@
 
         &.is-start-date {
           color: var(--litepickerDayIsStartColor)!important;
-          background-color: var(--litepickerDayIsStartBg);
+          background-color: var(--litepickerDayIsStartBg)!important;
           border-top-left-radius: var(--litepickerDayWidth);
           border-bottom-left-radius: var(--litepickerDayWidth);
           border-top-right-radius: 0;
@@ -318,7 +318,7 @@
 
         &.is-end-date {
           color: var(--litepickerDayIsEndColor)!important;
-          background-color: var(--litepickerDayIsEndBg);
+          background-color: var(--litepickerDayIsEndBg)!important;
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
           border-top-right-radius: var(--litepickerDayWidth);
