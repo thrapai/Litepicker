@@ -1,18 +1,19 @@
 :root {
   --litepickerBgColor: #fff;
 
-  --litepickerMonthHeaderTextColor: #333;
+  --litepickerMonthHeaderTextColor: rgba(34, 39, 78, 1);
   --litepickerMonthButton: #baac9e;
   --litepickerMonthButtonHover: #22274e;
   --litepickerMonthWidth: calc(var(--litepickerDayWidth) * 7); // 7 days
-  --litepickerMonthWeekdayColor: #9e9e9e;
+  --litepickerMonthWeekdayColor: #22274e;
 
-  --litepickerDayColor: #333;
+  --litepickerDayColor: rgba(34, 39, 78, 1);
   --litepickerDayColorHover: #22274e;
   --litepickerDayIsTodayColor: #c68f6d;
   --litepickerDayIsInRange: #f4e4d3;
-  --litepickerDayIsLockedColor: #9e9e9e;
-  --litepickerDayIsBookedColor: #9e9e9e;
+  --litepickerDayIsLockedColor: rgba(34, 39, 78, 0.2);
+  --litepickerDayOfWeekColor: rgba(34, 39, 78, 0.6);
+  --litepickerDayIsBookedColor: #373a52;
   --litepickerDayIsStartColor: #fff;
   --litepickerDayIsStartBg: #22274e;
   --litepickerDayIsEndColor: #fff;
@@ -233,20 +234,9 @@
           color: var(--litepickerDayIsTodayColor);
         }
 
-        &.is-locked {
-          color: var(--litepickerDayIsLockedColor);
-          text-decoration: line-through;
-
-          &:hover {
-            color: var(--litepickerDayIsLockedColor);
-            box-shadow: none;
-            cursor: default;
-          }
-        }
-
-        &:not(.is-locked) {
-          color: black;
-          font-weight: 500;
+        &.is-saturday {
+          color: var(--litepickerDayColor);
+          font-weight: bold;
 
           &:hover {
             background-color: var(--litepickerDayColorHover);
@@ -258,7 +248,26 @@
 
         &.is-day-of-week {
           pointer-events: none;
+          color: var(--litepickerDayOfWeekColor);
+
+          &:hover {
+            color: var(--litepickerDayOfWeekColor);
+            box-shadow: none;
+            cursor: default;
+          }
+        }
+
+        &.is-booked {
           color: var(--litepickerDayIsLockedColor);
+
+          &.is-saturday {
+            &:hover {
+              background-color: transparent;
+              color: var(--litepickerDayIsLockedColor);
+              box-shadow: none;
+              cursor: default;
+            }
+          }
 
           &:hover {
             color: var(--litepickerDayIsLockedColor);
@@ -267,23 +276,32 @@
           }
         }
 
-        &.is-booked {
-          color: var(--litepickerDayIsBookedColor);
+        &.is-locked {
+          color: var(--litepickerDayIsLockedColor);
+
+          &.is-saturday {
+            &:hover {
+              background-color: transparent;
+              color: var(--litepickerDayIsLockedColor);
+              box-shadow: none;
+              cursor: default;
+            }
+          }
 
           &:hover {
-            color: var(--litepickerDayIsBookedColor);
+            color: var(--litepickerDayIsLockedColor);
             box-shadow: none;
             cursor: default;
           }
         }
 
         &.is-in-range {
-          background-color: var(--litepickerDayIsInRange);
+          background-color: var(--litepickerDayIsInRange)!important;
           border-radius: 0;
         }
 
         &.is-start-date {
-          color: var(--litepickerDayIsStartColor);
+          color: var(--litepickerDayIsStartColor)!important;
           background-color: var(--litepickerDayIsStartBg);
           border-top-left-radius: var(--litepickerDayWidth);
           border-bottom-left-radius: var(--litepickerDayWidth);
@@ -299,7 +317,7 @@
         }
 
         &.is-end-date {
-          color: var(--litepickerDayIsEndColor);
+          color: var(--litepickerDayIsEndColor)!important;
           background-color: var(--litepickerDayIsEndBg);
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;

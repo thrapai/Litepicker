@@ -572,6 +572,7 @@ export class Calendar {
       const isCheckOut = this.dateIsBooked(date, '(]');
 
       const shouldBooked = (this.datePicked.length === 0 && booked)
+        || (isBookedBefore && isBookedAfter)
         || (this.datePicked.length === 1 && isBookedBefore && booked)
         || (this.datePicked.length === 1 && isBookedAfter && booked);
       
@@ -590,11 +591,15 @@ export class Calendar {
         && this.datePicked.length === 1;
 
       if (checkInAsCheckout) {
-        day.classList.remove(style.isDayOfWeek);
+        day.classList.remove(style.isBooked);
       } else if (isCheckInDate) {
-        day.classList.add(style.isDayOfWeek);
-      } else if (shouldBooked && !anyBookedDaysAsCheckout && !isCheckoutDate) {
-        day.classList.add(style.isLocked);
+        day.classList.add(style.isBooked);
+      } else if (shouldBooked && !anyBookedDaysAsCheckout) {
+        day.classList.add(style.isBooked);
+      }
+
+      if (isCheckoutDate) {
+        day.classList.remove(style.isBooked);
       }
     }
 
@@ -606,6 +611,8 @@ export class Calendar {
     if (this.options.onlySaturdays
       && (date.getDay() !== 6)) {
       day.classList.add(style.isDayOfWeek);
+    } else {
+      day.classList.add(style.isSaturday);
     }
 
     if (typeof this.options.onRenderDay === 'function') {
