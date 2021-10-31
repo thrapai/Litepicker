@@ -188,6 +188,16 @@ export class Litepicker extends Calendar {
         document.body.appendChild(this.picker);
       }
     }
+    if(this.options.breakpoint && !this.options.singleMode) {
+      if (this.picker.parentElement.clientWidth <= this.options.breakpoint) {
+        this.options.numberOfMonths = 1;
+        this.options.numberOfColumns = 1;
+      } else {
+        this.options.numberOfMonths = 2;
+        this.options.numberOfColumns = 2;
+      }
+      this.render();
+    }
 
     if (this.options.mobileFriendly) {
       this.backdrop = document.createElement('div');
@@ -196,7 +206,6 @@ export class Litepicker extends Calendar {
       if (this.options.element && this.options.element.parentNode) {
         this.options.element.parentNode.appendChild(this.backdrop);
       }
-
       window.addEventListener('orientationchange', (evt) => {
         // replace to screen.orientation.angle when Safari will support
         // https://caniuse.com/#feat=screen-orientation
@@ -210,28 +219,46 @@ export class Litepicker extends Calendar {
                 this.options.numberOfMonths = 2;
                 this.options.numberOfColumns = 2;
                 break;
-
               // portrait
               default:
                 this.options.numberOfMonths = 1;
                 this.options.numberOfColumns = 1;
                 break;
             }
-
             this.render();
-
+  
             if (!this.options.inlineMode) {
               const pickerBCR = this.picker.getBoundingClientRect();
               this.picker.style.top = `calc(50% - ${(pickerBCR.height / 2)}px)`;
               this.picker.style.left = `calc(50% - ${(pickerBCR.width / 2)}px)`;
             }
           }
-
-          window.removeEventListener('resize', afterOrientationChange);
+          if(!this.options.breakpoint)
+            window.removeEventListener('resize', afterOrientationChange);
         };
 
-        window.addEventListener('resize', afterOrientationChange);
+        if(!this.options.breakpoint)
+          window.addEventListener('resize', afterOrientationChange);
       });
+
+      if(this.options.breakpoint && !this.options.singleMode) {
+        var prev_brkpnt_state = 2;
+        window.addEventListener('resize', (evt) => {
+          if (this.picker.parentElement.clientWidth <= this.options.breakpoint && prev_brkpnt_state != 1) {
+            // container too small change to 1 column 
+            this.options.numberOfMonths = 1;
+            this.options.numberOfColumns = 1;
+            prev_brkpnt_state = 1;
+            this.render();
+          } else if(this.picker.parentElement.clientWidth > this.options.breakpoint && prev_brkpnt_state != 2) {
+            // container too large change to 2 column 
+            this.options.numberOfMonths = 2;
+            this.options.numberOfColumns = 2;
+            prev_brkpnt_state = 2;
+            this.render();
+          }
+        });
+      }
     }
 
     if (this.options.inlineMode) {

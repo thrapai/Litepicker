@@ -57,6 +57,8 @@ export class Calendar {
     highlightedDaysFormat: 'YYYY-MM-DD',
     highlightedDays: [],
 
+    breakpoint: null,
+    
     dropdowns: {
       minYear: 1990,
       // tslint:disable-next-line: object-literal-sort-keys
